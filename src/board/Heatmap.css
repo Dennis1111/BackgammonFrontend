@@ -1,0 +1,88 @@
+.heatmap-container {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(6, 40px);
+  grid-template-rows: repeat(7, 40px);
+  gap: 1px;
+  border: 1px solid #ccc;
+}
+
+.dice-header {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  gap: 1px;
+}
+
+.dice-label {
+  grid-column: 1 / span 1;
+  text-align: right;
+  padding: 0 4px;
+}
+
+.dice-value {
+  text-align: center;
+  padding: 4px;
+  font-weight: bold;
+}
+
+.heatmap-row {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  gap: 1px;
+}
+
+.heatmap-cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  transition: background-color 0.3s;
+}
+
+.heatmap-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.heatmap-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  position: relative;
+  max-width: 800px;
+  width: 90vw;
+}
+
+.heatmap-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}

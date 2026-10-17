@@ -1,0 +1,51 @@
+.dice-grid {
+	width: 2cqw;
+	height: 2cqw;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	gap: 4px;
+	background-color: #fff;
+	border: 2px solid #000;
+	border-radius: 8px;
+	padding: 6px;
+}
+
+.dice-dot {
+	width: 90%;
+	height: 90%;
+	background-color: black;
+	border-radius: 70%;
+	place-self: center;
+}
+
+.dice-grid[data-value="1"] .dice-dot:nth-child(5) { place-self: center; }
+.dice-grid[data-value="2"] .dice-dot:nth-child(2),
+.dice-grid[data-value="2"] .dice-dot:nth-child(8) { place-self: center; }
+.dice-grid[data-value="3"] .dice-dot:nth-child(1),
+.dice-grid[data-value="3"] .dice-dot:nth-child(5),
+.dice-grid[data-value="3"] .dice-dot:nth-child(9) { place-self: center; }
+.dice-grid[data-value="4"] .dice-dot:nth-child(1),
+.dice-grid[data-value="4"] .dice-dot:nth-child(3),
+.dice-grid[data-value="4"] .dice-dot:nth-child(7),
+.dice-grid[data-value="4"] .dice-dot:nth-child(9) { place-self: center; }
+.dice-grid[data-value="5"] .dice-dot:nth-child(1),
+.dice-grid[data-value="5"] .dice-dot:nth-child(3),
+.dice-grid[data-value="5"] .dice-dot:nth-child(5),
+.dice-grid[data-value="5"] .dice-dot:nth-child(7),
+.dice-grid[data-value="5"] .dice-dot:nth-child(9) { place-self: center; }
+.dice-grid[data-value="6"] .dice-dot:nth-child(1),
+.dice-grid[data-value="6"] .dice-dot:nth-child(3),
+.dice-grid[data-value="6"] .dice-dot:nth-child(4),
+.dice-grid[data-value="6"] .dice-dot:nth-child(6),
+.dice-grid[data-value="6"] .dice-dot:nth-child(7),
+.dice-grid[data-value="6"] .dice-dot:nth-child(9) { place-self: center; }
+
+.dice-container {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	gap: 10px;
+	z-index: 10;
+}

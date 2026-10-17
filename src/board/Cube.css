@@ -1,0 +1,33 @@
+.doubling-cube {
+	width: 4.0cqw;
+	height: 4.0cqw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+	color: #000;
+	border: 2px solid #000;
+	border-radius: 8px;
+	font-family: Georgia, serif;
+	font-weight: bold;
+	font-size: 1.5cqw;
+	line-height: 1;
+	user-select: none;
+	cursor: pointer;
+}
+
+/* Smaller text for two-digit numbers */
+.doubling-cube[data-value="16"],
+.doubling-cube[data-value="32"],
+.doubling-cube[data-value="64"] {
+	font-size: 1.2cqw;
+}
+
+/* The cube is in the center and no one owns it (shows 64) */
+.doubling-cube.centered {
+	background-color: #eee;
+}
+
+/* The cube is owned by a player, move it to their side */
+.doubling-cube.owner-top    { align-self: flex-start; }
+.doubling-cube.owner-bottom { align-self: flex-end; }
