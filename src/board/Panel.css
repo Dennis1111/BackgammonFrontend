@@ -1,0 +1,342 @@
+/* Side panel: score, game selector, move list, evaluation pane. */
+.game-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 360px;
+    flex-shrink: 0;
+    height: 100%;
+    box-sizing: border-box;
+    background: #f2f2f2;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.session-score {
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.session-score-title {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.session-score-line {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.score-ahead {
+    color: #1a7f1a;
+}
+
+.score-behind {
+    color: #b00020;
+}
+
+.history-select {
+    width: 100%;
+    font-size: 0.85rem;
+}
+
+.history-list {
+    flex: 1 1 50%;
+    min-height: 0;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #bbb;
+    font-size: 0.85rem;
+}
+
+.history-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 2px 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.history-row:hover {
+    background: #eef4ff;
+}
+
+.history-row.selected {
+    background: #1e6fd9;
+    color: #fff;
+}
+
+.row-no {
+    width: 1.8rem;
+    text-align: right;
+    color: #888;
+    flex: none;
+}
+
+.history-row.selected .row-no {
+    color: #cfe0ff;
+}
+
+.row-player {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    border: 1px solid #222;
+    flex: none;
+}
+
+    .row-player.p1 {
+        background: #fff;
+    }
+
+    .row-player.p2 {
+        background: #000;
+    }
+
+.row-mark {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    flex: none;
+}
+
+    .row-mark.doubtful {
+        background: #e6c200;
+    }
+
+    .row-mark.error {
+        background: #f08a00;
+    }
+
+    .row-mark.blunder {
+        background: #d11;
+    }
+
+.cube-badge {
+    min-width: 1.3rem;
+    text-align: center;
+    border: 1px solid #444;
+    border-radius: 3px;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    font-size: 0.75rem;
+    flex: none;
+}
+
+.row-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.eval-pane {
+    flex: 1 1 40%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #bbb;
+    background: #fff;
+}
+
+.eval-tabs {
+    display: flex;
+    border-bottom: 1px solid #bbb;
+}
+
+    .eval-tabs button {
+        flex: 1;
+        border: 0;
+        background: #e8e8e8;
+        padding: 4px;
+        cursor: pointer;
+    }
+
+        .eval-tabs button.active {
+            background: #fff;
+            font-weight: bold;
+        }
+
+.eval-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    font-size: 0.8rem;
+}
+
+.eval-empty {
+    padding: 0.6rem;
+    color: #666;
+}
+
+.eval-caption {
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    color: #555;
+    background: #f4f4f4;
+    border-bottom: 1px solid #eee;
+}
+
+.cand-row {
+    padding: 3px 6px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.cand-row:hover {
+    background: #f4f8ff;
+}
+
+.cand-row.selected {
+    background: #1e6fd9;
+    color: #fff;
+}
+
+.cand-top, .cand-sub {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.cand-check {
+    width: 1rem;
+    color: #1a7f1a;
+    font-weight: bold;
+    flex: none;
+}
+
+.cand-notation {
+    font-weight: bold;
+    color: #b00020;
+}
+
+.cand-notation.best {
+    color: #000;
+}
+
+.cand-row.selected .cand-notation {
+    color: #fff;
+}
+
+.cand-equity {
+    margin-left: auto;
+    font-weight: bold;
+}
+
+.cand-sub {
+    font-size: 0.72rem;
+    color: #555;
+    padding-left: 1.4rem;
+}
+
+.cand-row.selected .cand-sub {
+    color: #dbe8ff;
+}
+
+.cand-diff {
+    margin-left: auto;
+    color: #b00020;
+}
+
+.cand-row.selected .cand-diff {
+    color: #ffd6d6;
+}
+
+.cand-probs {
+    font-family: monospace;
+    white-space: pre;
+}
+
+.cube-view {
+    padding: 6px;
+}
+
+.cube-line {
+    margin-bottom: 4px;
+}
+
+.cube-line.best {
+    font-weight: bold;
+}
+
+.cube-table, .summary-table {
+    border-collapse: collapse;
+    margin: 6px;
+}
+
+.cube-table td, .summary-table td, .summary-table th {
+    padding: 2px 8px;
+}
+
+.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.panel-status {
+    min-height: 1.2rem;
+    font-size: 0.85rem;
+}
+
+.panel-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mode-row {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.mode-row select {
+    flex: 1;
+}
+
+.info-button { margin: 6px; padding: 2px 8px; cursor: pointer; }
+
+.level-header {
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #667;
+    background: #f1f4f9;
+    border-top: 1px solid #dde3ee;
+    border-bottom: 1px solid #dde3ee;
+}
+
+.modal-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.55);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 100;
+}
+.modal {
+	background: #fff;
+	border-radius: 8px;
+	width: min(720px, 94vw);
+	max-height: 90vh;
+	overflow: auto;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+.modal-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.6rem 1rem;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+}
+.modal-close { border: 0; background: none; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.modal-tabs { display: flex; border-bottom: 1px solid #ddd; }
+.modal-tabs button { flex: 1; border: 0; background: #eee; padding: 0.5rem; cursor: pointer; }
+.modal-tabs button.active { background: #fff; font-weight: bold; box-shadow: inset 0 -2px 0 #1e6fd9; }
+.modal-body { padding: 0.6rem 1rem 1rem; }
+.modal-body svg { width: 100%; height: auto; display: block; }
+.modal-note { font-size: 0.8rem; color: #555; margin-top: 0.5rem; }

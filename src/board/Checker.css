@@ -1,0 +1,117 @@
+.bear-off {
+    --tray-width: calc(var(--checker-size, 100px) * 1.45); /* the recess */
+    --tray-margin: calc(var(--checker-size, 100px) * 0.15); /* air on each side of it */
+    flex: 0 0 calc(var(--tray-width) + 2 * var(--tray-margin));
+    box-sizing: border-box;
+    position: relative;
+}
+
+.bear-off:not([id]) {
+    flex-basis: 2%;
+}
+
+/* Two separate recesses: one hugs the top, one hugs the bottom. Height is set from renderBoard.ts
+so it fits 15 checkers + the cube. The flat frame in between stays empty. */
+.bear-off[id] {
+    height: var(--tray-height, 80%);
+}
+
+.bear-off-top[id] {
+    align-self: flex-start;
+}
+
+.bear-off-bottom[id] {
+    align-self: flex-end;
+}
+
+.bear-off[id]::before {
+    width: var(--tray-width);
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 50%;
+    width: calc(var(--checker-size, 100px) * 1.45);
+    transform: translateX(-50%);
+    border-radius: 18px;
+    background: linear-gradient(90deg, #060606 0%, #0b0b0b 30%, #040404 48%, #121212 68%, #232323 100%);
+    box-shadow: inset 0 10px 14px -4px rgba(0, 0, 0, 0.95), inset 5px 0 8px -3px rgba(0, 0, 0, 0.9), inset -2px 0 3px rgba(255, 255, 255, 0.08), 0 2px 0 1px rgba(255, 255, 255, 0.14);
+    pointer-events: none;
+}
+
+/* ---------- Checkers (seen from above) ----------
+   width/height/bottom/top are set inline by renderBoard.ts.
+   Layers: bevelled rim (inset shadows) + engraved inner ring (::before) + soft gloss (::after). */
+.checker {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 2px solid var(--edge);
+    background: var(--face);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6), /* contact shadow on the board / the checker below */
+    inset 0 -3px 4px var(--shade), /* darker lower rim */
+    inset 0 2px 3px var(--light); /* lit upper rim */
+}
+
+.checker::before { /* engraved ring */
+    content: "";
+    position: absolute;
+    inset: 17%;
+    border-radius: 50%;
+    border: 2px solid var(--groove);
+    box-shadow: 0 1px 0 var(--groove-hi), inset 0 1px 0 var(--groove-hi);
+    pointer-events: none;
+}
+
+.checker::after { /* gloss, light from the upper left */
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(ellipse 60% 45% at 35% 25%, var(--gloss), transparent 70%);
+    pointer-events: none;
+}
+
+.checker.player1 { /* white / ivory */
+    --edge: #4a4333;
+    --face: radial-gradient(circle at 50% 45%, #fffdf6 0%, #f3ecd8 55%, #d9d0b6 100%);
+    --shade: rgba(120, 105, 70, 0.45);
+    --light: rgba(255, 255, 255, 0.9);
+    --groove: rgba(110, 98, 70, 0.55);
+    --groove-hi: rgba(255, 255, 255, 0.7);
+    --gloss: rgba(255, 255, 255, 0.65);
+}
+
+.checker.player2 { /* black / charcoal */
+    --edge: #000;
+    --face: radial-gradient(circle at 50% 45%, #4a4a4a 0%, #262626 55%, #0d0d0d 100%);
+    --shade: rgba(0, 0, 0, 0.7);
+    --light: rgba(255, 255, 255, 0.22);
+    --groove: rgba(0, 0, 0, 0.9);
+    --groove-hi: rgba(255, 255, 255, 0.18);
+    --gloss: rgba(255, 255, 255, 0.28);
+}
+
+/* Borne-off checkers stand on their edge: from above a thin rectangle, lighter in the
+middle where the rim faces up and darker toward the ends where it curves away. */
+.checker.bear-off-checker {
+    border-radius: 2px;
+    border: 1px solid var(--edge);
+    box-shadow: none;
+}
+
+.checker.bear-off-checker::before,
+.checker.bear-off-checker::after {
+    display: none;
+}
+
+.checker.bear-off-checker.player1 {
+    background: linear-gradient(90deg, #bdb398 0%, #f3ecd8 18%, #fffdf6 50%, #f3ecd8 82%, #bdb398 100%);
+}
+
+.checker.bear-off-checker.player2 {
+    background: linear-gradient(90deg, #050505 0%, #2e2e2e 18%, #4a4a4a 50%, #2e2e2e 82%, #050505 100%);
+}
