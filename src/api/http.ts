@@ -1,4 +1,3 @@
-// src/api/http.ts
 const BASE = '/api'; // proxied to the C++ server by vite.config.ts
 
 export async function postJson<TReq, TRes>(path: string, body: TReq): Promise<TRes> {

@@ -1,6 +1,3 @@
-// Replaces the markup section of BackgammonC#/Backgammon.WebApp/Components/Pages/Board.razor.
-// Point ids/classes are identical to the Blazor version so Board.css applies unchanged.
-
 export function createBoardMarkup(onPointClicked: (pointId: number) => void): HTMLElement {
 	const board = document.createElement('div');
 	board.className = 'board';

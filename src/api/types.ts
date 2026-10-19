@@ -1,4 +1,4 @@
-// src/api/types.ts: mirrors the JSON of the C++ BackgammonServer
+// mirrors the JSON of the C++ BackgammonServer
 export type PlayerId = 'P1' | 'P2';
 export type Position = number[];
 
