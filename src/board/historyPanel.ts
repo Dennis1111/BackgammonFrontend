@@ -9,6 +9,7 @@ import {
 } from '../game/settings';
 import type { EvalMode } from '../game/settings';
 import { probsText } from './format';
+import { openMoveComparison } from './moveComparison';
 import { openRollDiagram } from './rollDiagram';
 
 export interface ReviewTarget {
@@ -332,6 +333,14 @@ export class HistoryPanel {
 
 		const wrap = el('div');
 		const best = turn.candidates[0];
+
+		// Heatmaps comparing the best move with the move played (any two moves can be chosen in the pop-up)
+		if (turn.candidates.length >= 2) {
+			const compare = el('button', 'info-button', turn.playedIndex > 0 ? 'Compare with best move' : 'Compare moves');
+			compare.title = 'Heatmaps of the equity after each roll';
+			compare.addEventListener('click', () => openMoveComparison(turn));
+			wrap.append(compare);
+		}
 		// The list is sorted on search level first (deepest first), then on equity within each level.
 		// Headings only make sense when there is more than one level.
 		const showLevels = new Set(turn.candidates.map((c) => c.level ?? 1)).size > 1;

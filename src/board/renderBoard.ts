@@ -1,4 +1,3 @@
-// src/board/renderBoard.ts
 // Ported from BackgammonC#/Backgammon.WebApp/wwwroot/js/updateBoard.js
 // Point numbering preserved exactly: 0 = bar (player2), 25 = bar (player1), 26/27 = bear-off.
 import type { CubeState } from '../api/types';

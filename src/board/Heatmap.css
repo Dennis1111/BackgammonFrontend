@@ -1,88 +1,82 @@
-.heatmap-container {
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+/* Move comparison pop-up with heatmaps. Paste at the end of Panel.css (it also uses the .modal rules from Diagram.css). */
+.modal.modal-wide {
+    width: min(980px, 96vw);
+}
+
+.compare-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.compare-pick {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+}
+
+.compare-select {
+    max-width: 24rem;
+    font-size: 0.8rem;
+}
+
+.compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem 1.2rem;
+    padding: 0.7rem 1rem 1rem;
 }
 
 .heatmap {
-  display: grid;
-  grid-template-columns: repeat(6, 40px);
-  grid-template-rows: repeat(7, 40px);
-  gap: 1px;
-  border: 1px solid #ccc;
+    min-width: 0;
 }
 
-.dice-header {
-  display: grid;
-  grid-template-columns: repeat(7, 40px);
-  gap: 1px;
+.heatmap-title {
+    font-weight: bold;
+    font-size: 0.85rem;
 }
 
-.dice-label {
-  grid-column: 1 / span 1;
-  text-align: right;
-  padding: 0 4px;
+.heatmap-sub {
+    font-size: 0.72rem;
+    color: #555;
+    margin: 0.1rem 0 0.35rem;
 }
 
-.dice-value {
-  text-align: center;
-  padding: 4px;
-  font-weight: bold;
+.heatmap-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
 }
 
-.heatmap-row {
-  display: grid;
-  grid-template-columns: repeat(7, 40px);
-  gap: 1px;
-}
+    .heatmap-table th {
+        color: #666;
+        font-weight: normal;
+        padding: 2px;
+        width: 1.4rem;
+    }
 
-.heatmap-cell {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ddd;
-  transition: background-color 0.3s;
-}
+        .heatmap-table th:not(:first-child) {
+            width: auto;
+        }
 
-.heatmap-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
+    .heatmap-table td {
+        text-align: center;
+        padding: 0.45rem 0;
+        border: 1px solid #fff;
+    }
 
-.heatmap-modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  position: relative;
-  max-width: 800px;
-  width: 90vw;
-}
-
-.heatmap-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #555;
-}
-
-.heatmap-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+/* The free fourth cell: explanations can go here later */
+.heatmap-text {
+    border: 1px dashed #d0d0d0;
+    border-radius: 6px;
+    min-height: 8rem;
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    color: #555;
 }

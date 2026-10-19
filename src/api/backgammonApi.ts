@@ -1,3 +1,4 @@
+// src/api/backgammonApi.ts
 import { getJson, postJson } from './http';
 import type {
 	CubeDecisionRequest,
@@ -12,7 +13,6 @@ import type {
 // heavy ones run one at a time. This lets the game start evaluating your move in the background
 // while you think, without ever overlapping with the computer's own search.
 let queue: Promise<unknown> = Promise.resolve();
-
 function oneAtATime<T>(task: () => Promise<T>): Promise<T> {
 	const run = queue.then(task);
 	queue = run.catch(() => undefined);

@@ -1,7 +1,7 @@
-// src/board/rollDiagram.ts
 // Pop-up with a bar chart of the equity for each roll, sorted from best to worst.
 // Two tabs: the rolls after a double (doubleRollStats) and the rolls without doubling (noDoubleRollStats).
 import type { CubeDecisionResponse, RollStat } from '../api/types';
+import { EQUITY_NEGATIVE, EQUITY_POSITIVE } from './equityColors';
 import { probsText } from './format';
 
 type Which = 'double' | 'no-double';
@@ -84,7 +84,7 @@ function chart(rolls: Roll[], average: number): SVGSVGElement {
 		const y1 = y(r.equity);
 		const bar = svg('rect', {
 			x, y: Math.min(y0, y1), width: barW, height: Math.max(1, Math.abs(y1 - y0)),
-			fill: r.equity >= 0 ? '#2e7d32' : '#c62828',
+			fill: r.equity >= 0 ? EQUITY_POSITIVE : EQUITY_NEGATIVE,
 			opacity: r.weight === 1 ? 0.6 : 1, // doubles are rarer
 		});
 		bar.append(svg('title', {}, `${r.hi}-${r.lo}   equity ${r.equity.toFixed(3)}   (${r.weight}/36)\n${probsText(r.scores)}`));
