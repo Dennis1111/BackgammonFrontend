@@ -1,9 +1,7 @@
 # Backgammon web client
 
-# Backgammon web client
-
 A browser-based backgammon game for playing money games against a custom C++ engine. 
-The front end is written in TypeScript without a UI framework and was developed with help from Claude (AI), which also helped write this documentation.
+The front end is written in TypeScript. AI tools were used both during development and to help summarize the project's features in this README.
 The engine is a separate project and is not included in this repository, so the front end cannot run on its own.
 
 ![Backgammon game and analysis panel](docs/game.png)

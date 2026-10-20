@@ -1,4 +1,3 @@
-// src/board/historyPanel.ts
 // The side panel in the style of eXtreme Gammon: a game selector, the move list (with cube actions
 // and error marks) and, below it, an evaluation pane with the tabs Cube / Move / Summary.
 import type { CubeState, PlayerId, Position } from '../api/types';
@@ -36,6 +35,15 @@ function el<K extends keyof HTMLElementTagNameMap>(tag: K, className = '', text 
 	if (text) e.textContent = text;
 	return e;
 }
+
+// Colour of a candidate by the equity it loses compared with the best move:
+// below 0.02 black (a good move), 0.02 to 0.04 green (small mistake), 0.04 to 0.06 yellow, 0.06 and more red.
+// (A move that rates better than the best one, which can happen between search levels, counts as good.)
+const LOSS_GOOD = 0.02;
+const LOSS_SMALL = 0.04;
+const LOSS_YELLOW = 0.06;
+const lossClass = (loss: number): string =>
+	loss < LOSS_GOOD ? 'loss-good' : loss < LOSS_SMALL ? 'loss-small' : loss < LOSS_YELLOW ? 'loss-warn' : 'loss-bad';
 
 // Heading above each group of candidates that were evaluated at the same search depth.
 const levelTitle = (level: number): string =>
@@ -349,7 +357,7 @@ export class HistoryPanel {
 			if (showLevels && (i === 0 || level !== (all[i - 1].level ?? 1))) {
 				wrap.append(el('div', 'level-header', levelTitle(level)));
 			}
-			const classes = ['cand-row'];
+			const classes = ['cand-row', lossClass(best.equity - c.equity)];
 			if (i === turn.playedIndex) classes.push('played');
 			if (i === this.selectedCandidate) classes.push('selected');
 			const row = el('div', classes.join(' '));
@@ -357,7 +365,7 @@ export class HistoryPanel {
 			const top = el('div', 'cand-top');
 			top.append(
 				el('span', 'cand-check', i === turn.playedIndex ? '✓' : ''),
-				el('span', i === 0 ? 'cand-notation best' : 'cand-notation', c.notation)
+				el('span', 'cand-notation', c.notation)
 			);
 			top.append(el('span', 'cand-equity', c.equity.toFixed(3)));
 			const sub = el('div', 'cand-sub');

@@ -308,6 +308,61 @@
     border-bottom: 1px solid #dde3ee;
 }
 
+.cand-notation {
+    font-weight: bold;
+}
+
+.cand-diff {
+    margin-left: auto;
+}
+
+/* Colour by the equity lost compared with the best move: below 0.02 green, 0.02 to 0.05 yellow, 0.05 and more red */
+.cand-row.loss-good .cand-notation, .cand-row.loss-good .cand-diff {
+    color: #1a7f1a;
+}
+
+.cand-row.loss-ok .cand-notation, .cand-row.loss-ok .cand-diff {
+    color: #b8860b;
+}
+
+.cand-row.loss-bad .cand-notation, .cand-row.loss-bad .cand-diff {
+    color: #b00020;
+}
+
+/* On the blue selected row everything is light (keep these last) */
+.cand-row.selected .cand-notation {
+    color: #fff;
+}
+
+.cand-row.selected .cand-diff {
+    color: #dbe8ff;
+}
+
+/* On the blue selected row everything is light (keep these last) */
+.cand-row.selected .cand-notation {
+    color: #fff;
+}
+
+.cand-row.selected .cand-diff {
+    color: #dbe8ff;
+}
+
+.cand-row.loss-good .cand-notation, .cand-row.loss-good .cand-diff {
+    color: #000;
+}
+
+.cand-row.loss-small .cand-notation, .cand-row.loss-small .cand-diff {
+    color: #1a7f1a;
+}
+
+.cand-row.loss-warn .cand-notation, .cand-row.loss-warn .cand-diff {
+    color: #b8860b;
+}
+
+.cand-row.loss-bad .cand-notation, .cand-row.loss-bad .cand-diff {
+    color: #b00020;
+}
+
 .modal-backdrop {
 	position: fixed;
 	inset: 0;
