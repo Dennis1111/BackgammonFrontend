@@ -1,4 +1,3 @@
-// src/board/gameUI.ts
 // The only place that knows about buttons and the DOM; gameLoop.ts just awaits these promises.
 import { updateBoard } from './renderBoard';
 import { HistoryPanel } from './historyPanel';
@@ -68,6 +67,7 @@ interface LiveView {
 	dice: [number, number] | null;
 	player: 0 | 1;
 	cube: CubeState;
+	used?: (0 | 1 | 2)[]; // dice used so far in the move being made (drawn faded)
 }
 
 export function createGameUi(history: GameHistory): AppUi {
@@ -79,7 +79,7 @@ export function createGameUi(history: GameHistory): AppUi {
 	// All drawing of the live game goes through here. While reviewing it is only remembered.
 	const drawLive = (view: LiveView) => {
 		live = view;
-		if (!reviewing) updateBoard(view.board, view.dice, view.player, view.cube);
+		if (!reviewing) updateBoard(view.board, view.dice, view.player, view.cube, view.used);
 	};
 
 	// Review mode: the live buttons are hidden (CSS, .board.reviewing), the live input is blocked,
@@ -102,7 +102,7 @@ export function createGameUi(history: GameHistory): AppUi {
 			board().classList.remove('reviewing');
 			continueWrap?.remove();
 			continueWrap = null;
-			if (live) updateBoard(live.board, live.dice, live.player, live.cube);
+			if (live) updateBoard(live.board, live.dice, live.player, live.cube, live.used);
 		}
 		historyPanel.followLatest();
 	};
@@ -174,6 +174,7 @@ export function createGameUi(history: GameHistory): AppUi {
 					dice: view.finished ? null : view.dice, // Done replaces the dice
 					player: 0,
 					cube: state.cube,
+					used: view.used,
 				});
 				undoButton.disabled = view.done.length === 0;
 				doneWrap.style.display = view.finished ? 'flex' : 'none';

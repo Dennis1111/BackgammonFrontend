@@ -4,13 +4,16 @@ import type { CubeState } from '../api/types';
 
 export type PlayerClass = 'player1' | 'player2';
 
+export type DieUse = 0 | 1 | 2;
+
 // The last thing drawn, so a resize can redraw the same state.
-let lastRender: { board: number[]; dice: [number, number] | null; player: 0 | 1; cube: CubeState } | null = null;
+let lastRender: { board: number[]; dice: [number, number] | null; player: 0 | 1; cube: CubeState; used: DieUse[] } | null = null;
+
 
 // player: 0 = P1 (human, dice on the right), 1 = P2 (computer, dice on the left).
 // dice = null hides the dice (before the roll and after a finished move).
-export function updateBoard(board: number[], dice: [number, number] | null, player: 0 | 1, cube: CubeState): void {
-	lastRender = { board, dice, player, cube };
+export function updateBoard(board: number[], dice: [number, number] | null, player: 0 | 1, cube: CubeState, used: DieUse[] = []): void {
+	lastRender = { board, dice, player, cube, used };
 	clearBoard(board);
 	adjustCheckerSize();
 	setPointLabels(player);
@@ -30,7 +33,7 @@ export function updateBoard(board: number[], dice: [number, number] | null, play
 
 	const diceContainer = document.querySelector<HTMLElement>('.dice-container'); // first one = the dice
 	if (dice) {
-		showDice(player, dice);
+		showDice(player, dice, used);
 		diceContainer?.classList.remove('hidden');
 	} else {
 		diceContainer?.classList.add('hidden');
@@ -179,9 +182,11 @@ function createDiceDots(value: number): HTMLDivElement {
 	return grid;
 }
 
+
+
 // The dice container element itself is kept (only its children are rebuilt),
 // so a click listener attached to it (swap dice) survives redraws.
-function showDice(player: 0 | 1, diceValues: [number, number]): void {
+function showDice(player: 0 | 1, diceValues: [number, number], used: DieUse[]): void {
 	const diceContainer = document.querySelector<HTMLElement>('.dice-container');
 	if (!diceContainer) return;
 
@@ -191,9 +196,11 @@ function showDice(player: 0 | 1, diceValues: [number, number]): void {
 	diceContainer.style.right = '';
 	diceContainer.innerHTML = '';
 
-	diceValues.forEach((value) => {
+	diceValues.forEach((value, i) => {
 		const dice = createDiceDots(value);
 		dice.classList.add(player === 0 ? 'dice-player1' : 'dice-player2');
+		if (used[i] === 1) dice.classList.add('used-half');
+		if (used[i] === 2) dice.classList.add('used-full');
 		diceContainer.appendChild(dice);
 	});
 }
@@ -258,7 +265,7 @@ export function observeBoardResize(): void {
 
 	resizeObserver?.disconnect();
 	resizeObserver = new ResizeObserver(() => {
-		if (lastRender) updateBoard(lastRender.board, lastRender.dice, lastRender.player, lastRender.cube);
+		if (lastRender) updateBoard(lastRender.board, lastRender.dice, lastRender.player, lastRender.cube, lastRender.used);
 	});
 	resizeObserver.observe(boardElement);
 }

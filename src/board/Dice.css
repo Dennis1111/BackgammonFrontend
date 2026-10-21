@@ -11,6 +11,17 @@
 	padding: 6px;
 }
 
+/* Used dice during a move (doubles: a die stands for two moves, so it fades in two steps) */
+.dice-grid.used-half {
+	opacity: 0.6;
+	filter: grayscale(1);
+}
+
+.dice-grid.used-full {
+	opacity: 0.28;
+	filter: grayscale(1);
+}
+
 .dice-dot {
 	width: 90%;
 	height: 90%;

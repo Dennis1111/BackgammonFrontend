@@ -99,8 +99,6 @@ html, body {
 /* two classes beat .dice-container alone, regardless of file order */
 
 .selectable {
-    outline: 3px solid gold;
-    outline-offset: -3px;
     cursor: pointer;
 }
 

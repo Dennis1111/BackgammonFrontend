@@ -6,6 +6,7 @@ export interface MoveInputView {
 	done: Step[];
 	dice: [number, number];
 	finished: MoveCandidate | null; // non-null = move is complete, waiting for Done
+	used: (0 | 1 | 2)[];  // per die, in the order shown: 0 = not used, 1 = half used (doubles), 2 = used
 }
 
 let startPosition: number[] = [];
@@ -74,9 +75,44 @@ function liveSteps(): Step[] {
 		.filter((s) => board[s.from] > 0);
 }
 
+
+// Which die a step uses (an index into `dice`), or -1. A bear-off with a larger die than the point number uses
+// the smallest of the free dice that is big enough.
+function dieOfStep(s: Step, free: number[]): number {
+	const exact = free.find((i) => (s.isBearOff ? dice[i] === s.from : s.from - s.to === dice[i]));
+	if (exact !== undefined) return exact;
+	if (!s.isBearOff) return -1;
+	return free.filter((i) => dice[i] >= s.from).sort((a, b) => dice[a] - dice[b])[0] ?? -1;
+}
+
+// 0 = free, 1 = half used (doubles), 2 = used or not playable, in the order the dice are shown
+function diceStatus(): (0 | 1 | 2)[] {
+	const live = candidates.filter((c) => remaining(c) !== null); // the legal moves that still fit the steps played
+
+	if (dice[0] === dice[1]) {
+		// Doubles: four slots, each die stands for two of them
+		const capacity = live.length > 0 ? Math.max(...live.map((c) => c.steps.length)) : 4;
+		const greyed = [0, 1, 2, 3].map((slot) => slot < done.length || slot >= capacity);
+		const count = (a: number, b: number) => (Number(greyed[a]) + Number(greyed[b])) as 0 | 1 | 2;
+		return [count(0, 1), count(2, 3)];
+	}
+
+	const usedBy = (steps: Step[]): boolean[] => {
+		const used = [false, false];
+		for (const s of steps) {
+			const k = dieOfStep(s, [0, 1].filter((i) => !used[i]));
+			if (k >= 0) used[k] = true;
+		}
+		return used;
+	};
+	const played = usedBy(done);
+	const playable = [0, 1].map((i) => live.some((c) => usedBy(c.steps)[i])); // can a legal move still use this die?
+	return [0, 1].map((i) => (played[i] || !playable[i] ? 2 : 0)) as (0 | 1 | 2)[];
+}
+
 function notify(): void {
 	finished = candidates.find((c) => remaining(c)?.length === 0) ?? null;
-	onChange?.({ done, dice, finished });
+	onChange?.({ done, dice, finished, used: diceStatus() });
 	refreshHighlights();
 }
 
